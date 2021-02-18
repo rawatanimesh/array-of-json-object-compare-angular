@@ -6,10 +6,12 @@ import { Component, OnInit,  VERSION } from '@angular/core';
   styleUrls: [ './app.component.css' ]
 })
 export class AppComponent implements OnInit  {
-  name = 'Angular ' + VERSION.major;
+  
+  diff: any;
+  refIndex = 0;
 
-  objectA = [
-  {
+  objectArray =[
+    {
     "name":"node12",
     "id":11,
     "is_open":true,
@@ -18,21 +20,27 @@ export class AppComponent implements OnInit  {
         {"name":"child2","id":3},
         {"name":"child1","id":2}
       ]
-  }];
-
-  objectB = [
-  {
-    "name":"node11",
-    "name2":"node11",
-    "is_open":false,
-    "children":
-    [
-      {"name":"child2","id":3},
-      {"name":"child1","id":2}
-    ]
-  }]
-
-  diff: any;
+    },
+    {
+      "name":"node12",
+      "is_open":true,
+      "children":
+        [
+          {"name":"child2","id":3},
+          {"name":"child1","id":2}
+        ]
+    },
+    {
+      "name":"node13",
+      "id":11,
+      "is_open":false,
+      "children":
+        [
+          {"name":"child2","id":3},
+          {"name":"child1","id":2}
+        ]
+    }
+  ]
 
   ngOnInit(){
     /*
@@ -42,10 +50,13 @@ export class AppComponent implements OnInit  {
     We assume that data types haven't changed (String to Number).
     We assume that parent is either an Array or an Object.
 */
-    this.getDiff(this.objectA,this.objectB);
-    console.log("Reference",this.objectA);
-    console.log("Comparing with",this.objectB);
-    console.log("Diff",this.getDiff(this.objectA,this.objectB));
+    for(let i = 0; i < this.objectArray.length; i++){
+      if(this.refIndex != i){
+        console.log("Comparing "+this.refIndex+" object with "+i+" object");
+        console.log("Diff",this.getDiff(this.objectArray[this.refIndex],this.objectArray[i]));
+      }
+    }
+    
   }
 
   getDiff(a, b){
