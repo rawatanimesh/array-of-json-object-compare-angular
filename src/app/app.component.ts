@@ -9,6 +9,7 @@ export class AppComponent implements OnInit  {
   
   diff: any;
   refIndex = 0;
+  objKeyArray = [];
 
   objectArray =[
     {
@@ -54,15 +55,20 @@ export class AppComponent implements OnInit  {
       if(this.refIndex != i){
         console.log("Comparing "+this.refIndex+" object with "+i+" object");
         console.log("Diff",this.getDiff(this.objectArray[this.refIndex],this.objectArray[i]));
+        if(this.diff){
+          console.log('found changes');
+          
+        }
       }
     }
+
+    this.getObjectKeys(this.objectArray[0]);
     
   }
 
   getDiff(a, b){
     this.diff = ( this.isArray(a) ? [] : {});
     this.recursiveDiff(a, b, this.diff);
-    // console.log("Diff",this.diff);
     return this.diff;
   } 
 
@@ -98,6 +104,11 @@ export class AppComponent implements OnInit  {
 
   isArray(obj){
     return (Object.prototype.toString.call(obj) === '[object Array]');
+  }
+
+  getObjectKeys(obj){
+    this.objKeyArray = Object.keys(obj);
+    console.log("object keys",this.objKeyArray);
   }
 
 }

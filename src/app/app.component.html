@@ -1,1 +1,12 @@
-{{diff | json}}
+
+<table>
+  <tr>
+    <th *ngFor="let key of objKeyArray">{{key}}</th>
+  </tr>
+  <tr *ngFor="let item of objectArray">
+    <td>{{item.name}}</td>
+    <td>{{item.id}}</td>
+    <td>{{item.is_open}}</td>
+    <!-- <td>{{item.children}}</td> -->
+  </tr>
+</table>
