@@ -45,11 +45,11 @@ export class AppComponent implements OnInit  {
   ngOnInit(){
     /*
       We are comparing two objects: a and b.
-    Object b is newer and similar to a.
-    We are looking for changes from a to b.
-    We assume that data types haven't changed (String to Number).
-    We assume that parent is either an Array or an Object.
-*/
+      Object b is newer and similar to a.
+      We are looking for changes from a to b.
+      We assume that data types haven't changed (String to Number).
+      We assume that parent is either an Array or an Object.
+    */
     for(let i = 0; i < this.objectArray.length; i++){
       if(this.refIndex != i){
         console.log("Comparing "+this.refIndex+" object with "+i+" object");
@@ -68,36 +68,36 @@ export class AppComponent implements OnInit  {
 
   recursiveDiff(a, b, node){ 
     for(var prop in a){
-        if(typeof b[prop] == 'undefined'){
-            this.addNode(prop, '[[removed]]', node);
+      if(typeof b[prop] == 'undefined'){
+        this.addNode(prop, '[[removed]]', node);
+      }
+      else if(JSON.stringify(a[prop]) != JSON.stringify(b[prop])){
+        // if value
+        if(typeof b[prop] != 'object' || b[prop] == null){
+          this.addNode(prop, b[prop], node);
         }
-        else if(JSON.stringify(a[prop]) != JSON.stringify(b[prop])){
-            // if value
-            if(typeof b[prop] != 'object' || b[prop] == null){
-                this.addNode(prop, b[prop], node);
-            }
-            else {
-                // if array
-                if(this.isArray(b[prop])){
-                   this.addNode(prop, [], node);
-                   this.recursiveDiff(a[prop], b[prop], node[prop]);
-                }
-                // if object
-                else {
-                    this.addNode(prop, {}, node);
-                    this.recursiveDiff(a[prop], b[prop], node[prop]);
-                }
-            }
+        else {
+          // if array
+          if(this.isArray(b[prop])){
+            this.addNode(prop, [], node);
+            this.recursiveDiff(a[prop], b[prop], node[prop]);
+          }
+          // if object
+          else {
+            this.addNode(prop, {}, node);
+            this.recursiveDiff(a[prop], b[prop], node[prop]);
+          }
         }
+      }
     }
   }
 
-addNode(prop, value, parent){
-  parent[prop] = value;
-}
+  addNode(prop, value, parent){
+    parent[prop] = value;
+  }
 
-isArray(obj){
-  return (Object.prototype.toString.call(obj) === '[object Array]');
-}
+  isArray(obj){
+    return (Object.prototype.toString.call(obj) === '[object Array]');
+  }
 
 }
