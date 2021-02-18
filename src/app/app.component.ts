@@ -42,6 +42,7 @@ export class AppComponent implements OnInit  {
         ]
     }
   ]
+  tempObjectArray = [];
 
   ngOnInit(){
     /*
@@ -51,17 +52,19 @@ export class AppComponent implements OnInit  {
       We assume that data types haven't changed (String to Number).
       We assume that parent is either an Array or an Object.
     */
-    for(let i = 0; i < this.objectArray.length; i++){
+
+    this.tempObjectArray = this.objectArray;
+    for(let i = 0; i < this.tempObjectArray.length; i++){
       if(this.refIndex != i){
         console.log("Comparing "+this.refIndex+" object with "+i+" object");
-        console.log("Diff",this.getDiff(this.objectArray[this.refIndex],this.objectArray[i]));
+        console.log("Diff",this.getDiff(this.tempObjectArray[this.refIndex],this.tempObjectArray[i]));
         if(this.diff){
-          console.log('found changes');
-          
+          // console.log('found changes');
+          this.tempObjectArray[i].diff = this.diff;
         }
       }
     }
-
+    console.log(this.tempObjectArray);
     this.getObjectKeys(this.objectArray[0]);
     
   }
@@ -80,7 +83,8 @@ export class AppComponent implements OnInit  {
       else if(JSON.stringify(a[prop]) != JSON.stringify(b[prop])){
         // if value
         if(typeof b[prop] != 'object' || b[prop] == null){
-          this.addNode(prop, b[prop], node);
+          // this.addNode(prop, b[prop], node);
+          this.addNode(prop, '[[changed]]', node);
         }
         else {
           // if array

@@ -3,10 +3,10 @@
   <tr>
     <th *ngFor="let key of objKeyArray">{{key}}</th>
   </tr>
-  <tr *ngFor="let item of objectArray">
-    <td>{{item.name}}</td>
-    <td>{{item.id}}</td>
-    <td>{{item.is_open}}</td>
+  <tr *ngFor="let item of tempObjectArray">
+    <td [ngClass]="(item.diff && item.diff.name) ? 'removed' : ''">{{item.name}}</td>
+    <td [ngClass]="(item.diff && item.diff.id) ? 'removed' : ''">{{item.id}}</td>
+    <td [ngClass]="(item.diff && item.diff.is_open) ? 'removed' : ''">{{item.is_open}}</td>
     <!-- <td>{{item.children}}</td> -->
   </tr>
 </table>
