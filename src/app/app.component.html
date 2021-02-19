@@ -1,12 +1,15 @@
 
 <table>
   <tr>
-    <th *ngFor="let key of objKeyArray">{{key}}</th>
+    <th *ngFor="let key of objKeyArray">
+      <span>{{key}}</span>
+      </th>
   </tr>
-  <tr *ngFor="let item of tempObjectArray">
-    <td [ngClass]="(item.diff && item.diff.name) ? 'removed' : ''">{{item.name}}</td>
-    <td [ngClass]="(item.diff && item.diff.id) ? 'removed' : ''">{{item.id}}</td>
-    <td [ngClass]="(item.diff && item.diff.is_open) ? 'removed' : ''">{{item.is_open}}</td>
+  <tr *ngFor="let item of tempObjectArray; let i = index"
+    [ngClass]="{'reference': i == refIndex}">
+    <td [ngClass]="{'removed': (item.diff && item.diff.name && item.diff.name == '[[removed]]'),'changed': (item.diff && item.diff.name && item.diff.name != '[[removed]]')}">{{item.name}}</td>
+    <td [ngClass]="{'removed': (item.diff && item.diff.id && item.diff.id == '[[removed]]'),'changed': (item.diff && item.diff.id && item.diff.id != '[[removed]]')}">{{item.id}}</td>
+    <td [ngClass]="{'removed': (item.diff && item.diff.is_open && item.diff.is_open == '[[removed]]'),'changed': (item.diff && item.diff.is_open && item.diff.is_open != '[[removed]]')}">{{item.is_open}}</td>
     <!-- <td>{{item.children}}</td> -->
   </tr>
 </table>

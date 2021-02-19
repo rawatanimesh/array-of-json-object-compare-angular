@@ -9,6 +9,9 @@ td, th {
   padding: 8px;
 }
 
+.reference{
+  background-color: #f2f2f2
+}
 .changed{
   background-color: orange;
 }
