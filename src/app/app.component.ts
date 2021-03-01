@@ -38,7 +38,7 @@ export class AppComponent implements OnInit  {
       "children":
         [
           {"name":"child2","id":3},
-          {"name":"child1","id":2}
+          {"name":"child1"}
         ]
     }
   ]
